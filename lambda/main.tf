@@ -18,6 +18,13 @@
 #   region = "us-east-1"
 # }
 
+#vpc module
+module "vpc" {
+  source = "./modules/vpc"
+
+  vpc_cidr = "10.0.0.0/16"
+}
+
 # Package Lambda automatically
 data "archive_file" "lambda_zip" {
 

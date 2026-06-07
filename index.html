@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+ <!DOCTYPE html> 
 
 <html lang="en"> 
 
@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"> 
 
-  <title>EZMart - General Merchandise & Trading</title> 
+  <title>EZIMart - Buy, Sell & Trade</title> 
 
   <!-- Google Fonts & simple reset --> 
 
@@ -762,7 +762,7 @@
 
       <div class="logo"> 
 
-        <h1>⚡ MarketHub</h1> 
+        <h1>⚡ EZIMarts</h1> 
 
         <span>general merchandise • trade & sell</span> 
 
@@ -864,6 +864,53 @@
 
   </div> 
 
+  <!-- User Product Upload Form -->
+ 
+<div style="background:white;padding:25px;border-radius:20px;margin:30px 0;box-shadow:0 5px 12px rgba(0,0,0,0.05);">
+  <h2>📦 Sell an Item on EZIMart</h2>
+  <p>Upload your product details and photos.</p>
+
+  <form id="productForm">
+    <input
+      type="text"
+      id="productTitle"
+      placeholder="Product Title"
+      style="width:100%;padding:12px;margin:10px 0;"
+      required
+    >
+
+    <input
+      type="number"
+      id="productPrice"
+      placeholder="Price"
+      style="width:100%;padding:12px;margin:10px 0;"
+      required
+    >
+
+    <textarea
+      id="productDescription"
+      placeholder="Description"
+      style="width:100%;padding:12px;margin:10px 0;height:100px;"
+    ></textarea>
+
+    <input
+      type="file"
+      id="productImage"
+      accept="image/*"
+      style="margin:10px 0;"
+    >
+
+    <button
+      type="submit"
+      class="btn-primary"
+    >
+      Upload Product
+    </button>
+  </form>
+
+  <div id="uploadMessage" style="margin-top:15px;"></div>
+</div>
+
  
 
   <!-- TRADING SECTION : General merchandise exchange / used goods / offers --> 
@@ -900,7 +947,7 @@
 
   <div class="container"> 
 
-    <p>© 2025 MarketHub — General merchandise online sales & trading platform. Secure community marketplace.</p> 
+    <p>© 2025 EZIMarts — General merchandise online sales & trading platform. Secure community marketplace.</p> 
 
     <p style="margin-top: 8px;">✨ Buy, sell, trade electronics, fashion, collectibles, home goods & more.</p> 
 
@@ -944,9 +991,10 @@
 
   ]; 
 
- 
+  </script>
 
-  // Trading offers (buy/sell/swap secondhand or exchange) 
+<script>
+  // Trading offers (buy/sell/swap secondhand or exchange)
 
   let tradeOffers = [ 
 
@@ -1375,3 +1423,26 @@
 </body> 
 
 </html> 
+
+<footer>
+  <div class="container">
+    <p>© 2026 EZMart LLC. All Rights Reserved.</p>
+
+    <p style="margin-top:10px;color:#fbbf24;">
+      ⚠️ Coming Soon: This website is currently under development and is being used for testing and demonstration purposes. Features, content, pricing, and functionality may change without notice as we continue to build and improve the platform.
+
+At this time, this is a temporary/dummy website and should not be relied upon for production transactions or official business operations.
+
+We appreciate your patience and look forward to launching the full EZMart experience soon.
+
+For questions or feedback, please contact us at:
+Email: info@ezimarts.com
+Phone: (646) 637-4619
+
+Thank you for visiting EZMart LLC</p>
+
+    <p style="margin-top:8px;">
+      Contact: info@ezimarts.com | (646) 637-4619
+    </p>
+  </div>
+</footer>
