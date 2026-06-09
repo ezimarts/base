@@ -1,0 +1,1 @@
+{"errorMessage": "name 'Zahid' is not defined", "errorType": "NameError", "requestId": "cb7cb352-4ef4-4419-9138-d661eb0eac06", "stackTrace": ["  File \"/var/task/lambda.py\", line 17, in lambda_handler\n    \"name\": Zahid\n"]}
