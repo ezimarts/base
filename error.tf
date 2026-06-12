@@ -1,13 +1,37 @@
-custom_error_response {
-  error_code            = 403
-  response_code         = 404
-  response_page_path    = "/error.html"
-  error_caching_min_ttl = 60
-}
+resource "aws_cloudfront_distribution" "web" {
 
-custom_error_response {
-  error_code            = 404
-  response_code         = 404
-  response_page_path    = "/error.html"
-  error_caching_min_ttl = 60
+  origin {
+    domain_name = aws_s3_bucket.web.bucket_regional_domain_name
+    origin_id   = "S3Origin"
+  }
+
+  enabled             = true
+  default_root_object = "index.html"
+
+  # 👇 THIS is where your default_cache_behavior goes
+  default_cache_behavior {
+    target_origin_id       = "S3Origin"
+    viewer_protocol_policy = "redirect-to-https"
+
+    allowed_methods = ["GET", "HEAD", "OPTIONS"]
+    cached_methods  = ["GET", "HEAD"]
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+  }
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
+  viewer_certificate {
+    cloudfront_default_certificate = true
+  }
 }
