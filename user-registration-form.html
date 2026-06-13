@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EZMart - Buy, Sell & Trade</title>
+
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+
+body{
+  background:#f8fafc;
+  color:#0f172a;
+}
+
+
+/* SPLASH SCREEN */
+#splashScreen{
+  position:fixed;
+  inset:0;
+  background:url("logo.png") center/cover no-repeat;
+  z-index:9999;
+}
+
+
+#splashScreen::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,40,120,0.15);
+}
+
+
+.welcomeSplash{
+  position:absolute;
+  bottom:70px;
+  left:50%;
+  transform:translateX(-50%);
+  color:white;
+  font-size:30px;
+  font-weight:600;
+  text-shadow:0 5px 20px rgba(0,0,0,0.55);
+  z-index:2;
+  animation:fadeUp 1.4s ease;
+}
+
+
+.loader{
+  position:absolute;
+  bottom:25px;
+  left:50%;
+  width:44px;
+  height:44px;
+  border:5px solid rgba(255,255,255,0.4);
+  border-top-color:white;
+  border-radius:50%;
+  z-index:2;
+  animation:spin 1s linear infinite;
+}
+
+
+@keyframes spin{
+  to{transform:translateX(-50%) rotate(360deg);}
+}
+
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translate(-50%,30px);}
+  to{opacity:1; transform:translate(-50%,0);}
+}
+
+
+/* AUTH PAGE */
+#authPage{
+  display:none;
+  min-height:100vh;
+  background:linear-gradient(135deg,#005eff,#00b7ff);
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+
+.authBox{
+  width:1050px;
+  max-width:96%;
+  min-height:620px;
+  background:white;
+  border-radius:28px;
+  display:flex;
+  overflow:hidden;
+  box-shadow:0 25px 70px rgba(0,0,0,0.25);
+}
+
+
+.authLeft{
+  flex:1;
+  background:url("logo.png") center/cover no-repeat;
+  position:relative;
+}
+
+
+.authLeft::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,55,150,0.35);
+}
+
+
+.authLeftContent{
+  position:absolute;
+  z-index:2;
+  bottom:45px;
+  left:45px;
+  color:white;
+}
+
+
+.authLeftContent h1{
+  font-size:54px;
+}
+
+
+.authLeftContent p{
+  font-size:19px;
+  margin-top:8px;
+}
+
+
+.authRight{
+  flex:1;
+  padding:55px;
+}
+
+
+.tabs{
+  display:flex;
+  gap:12px;
+  margin-bottom:30px;
+}
+
+
+.tabs button{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#e8eef8;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:700;
+}
+
+
+.tabs button.active{
+  background:#005eff;
+  color:white;
+}
+
+
+.form h2{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+
+.form p{
+  color:#64748b;
+  margin-bottom:24px;
+}
+
+
+.form input{
+  width:100%;
+  padding:15px;
+  margin-bottom:15px;
+  border:1px solid #cbd5e1;
+  border-radius:12px;
+  font-size:15px;
+}
+
+
+.passwordBox{
+  position:relative;
+}
+
+
+.passwordBox input{
+  padding-right:50px;
+}
+
+
+.eye{
+  position:absolute;
+  right:15px;
+  top:14px;
+  cursor:pointer;
+}
+
+
+.rememberRow{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:15px;
+  color:#475569;
+}
+
+
+.rememberRow input{
+  width:auto;
+  margin:0;
+}
+
+
+.mainBtn{
+  width:100%;
+  padding:15px;
+  background:#005eff;
+  color:white;
+  border:none;
+  border-radius:12px;
+  font-size:17px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+
+.mainBtn:hover{
+  background:#0048c9;
+}
+
+
+.switchText{
+  margin-top:18px;
+  text-align:center;
+  color:#475569;
+}
+
+
+.switchText span{
+  color:#005eff;
+  font-weight:700;
+  cursor:pointer;
+}
+
+
+#loginForm{
+  display:none;
+}
+
+
+/* APP */
+#mainApp{
+  display:none;
+}
+
+
+.container{
+  max-width:1280px;
+  margin:auto;
+  padding:0 24px;
+}
+
+
+.topBar{
+  background:white;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:16px 0;
+  flex-wrap:wrap;
+}
+
+
+.logo h1{
+  font-size:30px;
+  color:#005eff;
+}
+
+
+.logo span{
+  font-size:12px;
+  color:#64748b;
+}
+
+
+.searchBar{
+  flex:1;
+  max-width:460px;
+  display:flex;
+}
+
+
+.searchBar input{
+  width:100%;
+  padding:12px 16px;
+  border:1px solid #cbd5e1;
+  border-radius:40px 0 0 40px;
+}
+
+
+.searchBar button{
+  border:none;
+  background:#005eff;
+  color:white;
+  padding:0 18px;
+  border-radius:0 40px 40px 0;
+  cursor:pointer;
+}
+
+
+.headerIcons{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+
+.iconBtn{
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  color:#334155;
+}
+
+
+#welcomeUser{
+  font-weight:700;
+  color:#005eff;
+}
+
+
+.categories{
+  background:white;
+  border-bottom:1px solid #e2e8f0;
+  padding:12px 0;
+}
+
+
+.catList{
+  display:flex;
+  list-style:none;
+  gap:26px;
+  overflow:auto;
+}
+
+
+.catList li{
+  cursor:pointer;
+  color:#334155;
+  font-weight:600;
+  white-space:nowrap;
+}
+
+
+.catList li.active{
+  color:#005eff;
+  border-bottom:2px solid #005eff;
+  padding-bottom:4px;
+}
+
+
+.hero{
+  margin:28px 0;
+  background:linear-gradient(120deg,#eaf2ff,#f8fbff);
+  border-radius:28px;
+  padding:40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:25px;
+}
+
+
+.hero h2{
+  font-size:38px;
+  margin-bottom:12px;
+}
+
+
+.hero p{
+  color:#475569;
+  max-width:560px;
+  margin-bottom:20px;
+}
+
+
+.btnPrimary{
+  background:#005eff;
+  color:white;
+  border:none;
+  border-radius:35px;
+  padding:11px 24px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+
+.btnOutline{
+  background:white;
+  color:#005eff;
+  border:1.5px solid #005eff;
+  border-radius:35px;
+  padding:11px 24px;
+  cursor:pointer;
+  font-weight:700;
+  margin-left:10px;
+}
+
+
+.heroBadge{
+  background:#ffedd5;
+  padding:12px 20px;
+  border-radius:40px;
+  font-weight:700;
+}
+
+
+.sectionTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:35px 0 18px;
+}
+
+
+.sectionTitle h2{
+  font-size:28px;
+}
+
+
+.sectionTitle a{
+  color:#005eff;
+  text-decoration:none;
+  font-weight:700;
+}
+
+
+.productGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:24px;
+}
+
+
+.productCard{
+  background:white;
+  border:1px solid #e2e8f0;
+  border-radius:20px;
+  padding:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.04);
+  transition:0.2s;
+}
+
+
+.productCard:hover{
+  transform:translateY(-5px);
+}
+
+
+.productImg{
+  height:150px;
+  background:#f1f5f9;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:55px;
+}
+
+
+.productTitle{
+  margin-top:14px;
+  font-weight:700;
+}
+
+
+.productPrice{
+  color:#005eff;
+  font-size:20px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+
+.condition{
+  display:inline-block;
+  margin-top:8px;
+  background:#eaf2ff;
+  padding:4px 12px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+
+.sellBox{
+  margin:35px 0;
+  background:white;
+  padding:28px;
+  border-radius:22px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.05);
+}
+
+
+.sellBox input,
+.sellBox textarea{
+  width:100%;
+  padding:13px;
+  margin-top:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+}
+
+
+.sellBox textarea{
+  height:100px;
+}
+
+
+.tradingSection{
+  background:linear-gradient(120deg,#fff7df,#fff0cc);
+  border-radius:28px;
+  padding:30px;
+  margin:35px 0;
+}
+
+
+.tradeHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+
+.tradeCards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:20px;
+}
+
+
+.tradeCard{
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  border:1px solid #ffe2a8;
+}
+
+
+.tradeCard h3{
+  margin-bottom:10px;
+}
+
+
+.tradeBadge{
+  background:#fef3c7;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:700;
+}
+
+
+.tradeDesc{
+  color:#64748b;
+  margin:12px 0;
+}
+
+
+.btnTrade{
+  width:100%;
+  padding:10px;
+  background:#f7a81e;
+  border:none;
+  border-radius:30px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+
+footer{
+  background:#0f172a;
+  color:#cbd5e1;
+  text-align:center;
+  padding:30px;
+  margin-top:40px;
+}
+
+
+.toast{
+  position:fixed;
+  right:25px;
+  bottom:25px;
+  background:#0f172a;
+  color:white;
+  padding:12px 22px;
+  border-radius:40px;
+  opacity:0;
+  pointer-events:none;
+  transition:0.2s;
+  z-index:999;
+}
+
+
+.toast.show{
+  opacity:1;
+}
+
+
+@media(max-width:850px){
+  .authBox{
+    flex-direction:column;
+  }
+
+
+  .authLeft{
+    min-height:230px;
+  }
+
+
+  .authRight{
+    padding:32px;
+  }
+
+
+  .hero{
+    flex-direction:column;
+    text-align:center;
+  }
+
+
+  .welcomeSplash{
+    font-size:30px;
+    width:90%;
+    text-align:center;
+  }
+}
+</style>
+</head>
+
+
+<body>
+<div id="splashScreen">
+  <div class="welcomeSplash">Welcome to EZMart</div>
+  <div class="loader"></div>
+</div>
+
+
+<div id="authPage">
+  <div class="authBox">
+
+
+    <div class="authLeft">
+      <div class="authLeftContent">
+        <h1>EZMart</h1>
+        <p>Buy, Sell & Trade Worldwide</p>
+      </div>
+    </div>
+
+
+    <div class="authRight">
+
+
+      <div class="tabs">
+        <button id="registerTab" class="active">Register</button>
+        <button id="loginTab">Login</button>
+      </div>
+
+
+      <form id="registerForm" class="form">
+        <h2>Create Account</h2>
+        <p>Register first to start using EZMart.</p>
+
+
+        <input type="text" id="regName" placeholder="Full Name" required>
+        <input type="email" id="regEmail" placeholder="Email Address" required>
+
+
+        <div class="passwordBox">
+          <input type="password" id="regPassword" placeholder="Password" required>
+          <span class="eye" onclick="togglePassword('regPassword')">👁</span>
+        </div>
+
+
+        <button class="mainBtn" type="submit">Register</button>
+
+
+        <div class="switchText">
+          Already have an account?
+          <span onclick="showLogin()">Login</span>
+        </div>
+      </form>
+
+
+      <form id="loginForm" class="form">
+        <h2>Login</h2>
+        <p>Welcome back to EZMart.</p>
+
+
+        <input type="email" id="loginEmail" placeholder="Email Address" required>
+
+
+        <div class="passwordBox">
+          <input type="password" id="loginPassword" placeholder="Password" required>
+          <span class="eye" onclick="togglePassword('loginPassword')">👁</span>
+        </div>
+
+
+        <label class="rememberRow">
+          <input type="checkbox" id="rememberMe">
+          Remember Me
+        </label>
+
+
+        <button class="mainBtn" type="submit">Login</button>
+
+
+        <div class="switchText">
+          New user?
+          <span onclick="showRegister()">Register</span>
+        </div>
+      </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+<div id="mainApp">
+
+
+  <div class="topBar">
+    <div class="container">
+      <div class="navbar">
+
+
+        <div class="logo">
+          <h1>⚡ EZMart</h1>
+          <span>general merchandise • trade & sell</span>
+        </div>
+
+
+        <div class="searchBar">
+          <input type="text" id="searchInput" placeholder="Search electronics, fashion, home goods...">
+          <button id="searchBtn">Search</button>
+        </div>
+
+
+        <div class="headerIcons">
+          <span id="welcomeUser"></span>
+          <button class="iconBtn" id="cartBtn">🛒 Cart</button>
+          <button class="iconBtn" id="tradeBtn">🔄 Trade Hub</button>
+          <button class="iconBtn" id="logoutBtn">🚪 Logout</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="categories">
+    <div class="container">
+      <ul class="catList" id="categoryList">
+        <li class="active" data-cat="all">✨ All Items</li>
+        <li data-cat="electronics">📱 Electronics</li>
+        <li data-cat="fashion">👕 Fashion</li>
+        <li data-cat="home">🏠 Home & Living</li>
+        <li data-cat="collectibles">🎮 Collectibles</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="container">
+
+
+    <section class="hero">
+      <div>
+        <h2>Buy, Sell & Trade<br>General Merchandise</h2>
+        <p>Discover everyday essentials, rare finds, exclusive deals, and community trade offers on EZMart.</p>
+        <button class="btnPrimary" id="exploreBtn">Explore Deals →</button>
+        <button class="btnOutline" id="startTradingBtn">Start Trading</button>
+      </div>
+
+
+      <div class="heroBadge">🔥 500+ traders active</div>
+    </section>
+
+
+    <div class="sectionTitle">
+      <h2>🔥 Trending Merchandise</h2>
+      <a href="#" id="viewAll">View all →</a>
+    </div>
+
+
+    <div class="productGrid" id="productGrid"></div>
+
+
+    <div class="sellBox">
+      <h2>📦 Sell an Item on EZMart</h2>
+      <p>Upload your product details and photos.</p>
+
+
+      <form id="productForm">
+        <input type="text" id="productTitle" placeholder="Product Title" required>
+        <input type="number" id="productPrice" placeholder="Price" required>
+        <textarea id="productDescription" placeholder="Description"></textarea>
+        <input type="file" id="productImage" accept="image/*">
+        <br><br>
+        <button class="btnPrimary" type="submit">Upload Product</button>
+      </form>
+    </div>
+
+
+    <section class="tradingSection" id="tradingSection">
+      <div class="tradeHeader">
+        <h2>🔄 Trading Post</h2>
+        <span class="tradeBadge">Community driven | Used goods & exchange</span>
+      </div>
+
+
+      <div class="tradeCards" id="tradeCards"></div>
+
+
+      <br>
+      <button class="btnOutline" id="postTradeBtn">➕ Post your trade offer</button>
+    </section>
+
+
+  </div>
+
+
+  <footer>
+    <p>© 2026 EZMart — General merchandise online sales & trading platform.</p>
+    <p>Buy, sell, trade electronics, fashion, collectibles, home goods & more.</p>
+  </footer>
+
+
+</div>
+
+
+<div class="toast" id="toast">Message</div>
+
+
+<script>
+const products = [
+  {id:1,name:"Wireless Headphones",price:89.99,category:"electronics",emoji:"🎧",condition:"New"},
+  {id:2,name:"Smart Watch",price:49.99,category:"electronics",emoji:"⌚",condition:"New"},
+  {id:3,name:"Cotton Hoodie",price:39.99,category:"fashion",emoji:"👕",condition:"New"},
+  {id:4,name:"Plant Pot Set",price:24.99,category:"home",emoji:"🪴",condition:"New"},
+  {id:5,name:"Comic Collection",price:45.00,category:"collectibles",emoji:"📚",condition:"Used - Like New"},
+  {id:6,name:"Gaming Keyboard RGB",price:79.99,category:"electronics",emoji:"⌨️",condition:"New"},
+  {id:7,name:"Denim Jacket",price:59.99,category:"fashion",emoji:"🧥",condition:"New"},
+  {id:8,name:"Cookware Set",price:129.99,category:"home",emoji:"🍳",condition:"New"},
+  {id:9,name:"Action Figure",price:34.99,category:"collectibles",emoji:"🤖",condition:"Mint"},
+  {id:10,name:"Bluetooth Speaker",price:29.99,category:"electronics",emoji:"🔊",condition:"New"}
+];
+
+
+let trades = [
+  {title:"Used iPhone 12 - 128GB",type:"Sell / Trade",price:"$380 or swap for Pixel",user:"@alex_trader",condition:"Good",category:"Electronics"},
+  {title:"Nintendo Switch Games",type:"Trade",price:"Looking for PS4 games",user:"@game_master",condition:"Like new",category:"Gaming"},
+  {title:"Vintage Leather Jacket",type:"Sell",price:"$75 OBO",user:"@vintage_lover",condition:"Minor wear",category:"Fashion"},
+  {title:"IKEA Coffee Table",type:"Swap",price:"Trade for bookshelf",user:"@home_swap",condition:"Good",category:"Furniture"}
+];
+
+
+let cart = [];
+let activeCategory = "all";
+let searchText = "";
+
+
+setTimeout(() => {
+  document.getElementById("splashScreen").style.display = "none";
+
+
+  const loggedIn = localStorage.getItem("loggedInUser");
+
+
+  if(loggedIn){
+    showMainApp();
+  }else{
+    document.getElementById("authPage").style.display = "flex";
+    showRegister();
+  }
+}, 2000);
+
+
+function showRegister(){
+  document.getElementById("registerForm").style.display = "block";
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("registerTab").classList.add("active");
+  document.getElementById("loginTab").classList.remove("active");
+}
+
+
+function showLogin(){
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("registerForm").style.display = "none";
+  document.getElementById("loginTab").classList.add("active");
+  document.getElementById("registerTab").classList.remove("active");
+
+
+  const rememberedEmail = localStorage.getItem("rememberedEmail");
+  if(rememberedEmail){
+    document.getElementById("loginEmail").value = rememberedEmail;
+    document.getElementById("rememberMe").checked = true;
+  }
+}
+
+
+document.getElementById("registerTab").onclick = showRegister;
+document.getElementById("loginTab").onclick = showLogin;
+
+
+function togglePassword(id){
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
+
+
+document.getElementById("registerForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+
+  const user = {
+    name: document.getElementById("regName").value.trim(),
+    email: document.getElementById("regEmail").value.trim(),
+    password: document.getElementById("regPassword").value
+  };
+
+
+  localStorage.setItem("ezmartUser", JSON.stringify(user));
+
+
+  showToast("✅ Account created. Please login.");
+  showLogin();
+  document.getElementById("loginEmail").value = user.email;
+});
+
+
+document.getElementById("loginForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+  const remember = document.getElementById("rememberMe").checked;
+  const user = JSON.parse(localStorage.getItem("ezmartUser"));
+
+
+  if(user && user.email === email && user.password === password){
+    localStorage.setItem("loggedInUser", email);
+
+
+    if(remember){
+      localStorage.setItem("rememberedEmail", email);
+    }else{
+      localStorage.removeItem("rememberedEmail");
+    }
+
+
+    showToast("✅ Login successful");
+    showMainApp();
+  }else{
+    showToast("❌ Wrong email or password");
+  }
+});
+
+
+function showMainApp(){
+  const user = JSON.parse(localStorage.getItem("ezmartUser"));
+
+
+  document.getElementById("authPage").style.display = "none";
+  document.getElementById("mainApp").style.display = "block";
+
+
+  if(user){
+    document.getElementById("welcomeUser").textContent = "Welcome, " + user.name;
+  }
+
+
+  renderProducts();
+  renderTrades();
+}
+
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  localStorage.removeItem("loggedInUser");
+  location.reload();
+});
+
+
+function renderProducts(){
+  const grid = document.getElementById("productGrid");
+
+
+  let list = products;
+
+
+  if(activeCategory !== "all"){
+    list = list.filter(p => p.category === activeCategory);
+  }
+
+
+  if(searchText.trim() !== ""){
+    list = list.filter(p =>
+      p.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      p.category.toLowerCase().includes(searchText.toLowerCase())
+    );
+  }
+
+
+  grid.innerHTML = list.map(p => `
+    <div class="productCard">
+      <div class="productImg">${p.emoji}</div>
+      <div class="productTitle">${p.name}</div>
+      <div class="productPrice">$${p.price.toFixed(2)}</div>
+      <span class="condition">${p.condition}</span>
+      <br><br>
+      <button class="btnPrimary" onclick="addToCart(${p.id})">Add to Cart</button>
+    </div>
+  `).join("");
+}
+
+
+function addToCart(id){
+  const product = products.find(p => p.id === id);
+  cart.push(product);
+  showToast("🛒 Added to cart");
+}
+
+
+document.getElementById("searchBtn").addEventListener("click", () => {
+  searchText = document.getElementById("searchInput").value;
+  renderProducts();
+});
+
+
+document.getElementById("searchInput").addEventListener("keyup", e => {
+  if(e.key === "Enter"){
+    searchText = e.target.value;
+    renderProducts();
+  }
+});
+
+
+document.querySelectorAll("#categoryList li").forEach(item => {
+  item.addEventListener("click", () => {
+    document.querySelectorAll("#categoryList li").forEach(li => li.classList.remove("active"));
+    item.classList.add("active");
+    activeCategory = item.dataset.cat;
+    renderProducts();
+  });
+});
+
+
+document.getElementById("viewAll").addEventListener("click", e => {
+  e.preventDefault();
+  activeCategory = "all";
+  searchText = "";
+  document.getElementById("searchInput").value = "";
+  document.querySelectorAll("#categoryList li").forEach(li => li.classList.remove("active"));
+  document.querySelector('[data-cat="all"]').classList.add("active");
+  renderProducts();
+});
+
+
+function renderTrades(){
+  const box = document.getElementById("tradeCards");
+
+
+  box.innerHTML = trades.map(t => `
+    <div class="tradeCard">
+      <h3>${t.title}</h3>
+      <span class="tradeBadge">${t.type}</span>
+      <p class="tradeDesc">${t.condition} • ${t.category}</p>
+      <p><b>💰 ${t.price}</b></p>
+      <p>👤 ${t.user}</p>
+      <br>
+      <button class="btnTrade" onclick="showToast('📩 Trade offer sent')">Make Offer</button>
+    </div>
+  `).join("");
+}
+
+
+document.getElementById("startTradingBtn").addEventListener("click", () => {
+  document.getElementById("tradingSection").scrollIntoView({behavior:"smooth"});
+});
+
+
+document.getElementById("tradeBtn").addEventListener("click", () => {
+  document.getElementById("tradingSection").scrollIntoView({behavior:"smooth"});
+});
+
+
+document.getElementById("cartBtn").addEventListener("click", () => {
+  showToast("🛒 Cart has " + cart.length + " item(s)");
+});
+
+
+document.getElementById("productForm").addEventListener("submit", e => {
+  e.preventDefault();
+
+
+  const title = document.getElementById("productTitle").value;
+  const price = Number(document.getElementById("productPrice").value);
+
+
+  products.unshift({
+    id:Date.now(),
+    name:title,
+    price:price,
+    category:"home",
+    emoji:"📦",
+    condition:"User Uploaded"
+  });
+
+
+  renderProducts();
+  e.target.reset();
+  showToast("✅ Product uploaded");
+});
+
+
+document.getElementById("postTradeBtn").addEventListener("click", () => {
+  const title = prompt("Item name?");
+  if(!title) return;
+
+
+  const price = prompt("Price or trade request?");
+  if(!price) return;
+
+
+  trades.unshift({
+    title:title,
+    type:"Sell / Trade",
+    price:price,
+    user:"@you",
+    condition:"Used / Varies",
+    category:"General"
+  });
+
+
+  renderTrades();
+  showToast("✅ Trade post added");
+});
+
+
+function showToast(message){
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2200);
+}
+</script>
+
+
+</body>
+</html>
+

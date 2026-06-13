@@ -68,3 +68,4 @@ resource "aws_api_gateway_stage" "test" {
   stage_name    = "test"
   deployment_id = aws_api_gateway_deployment.deployment.id
 }
+
